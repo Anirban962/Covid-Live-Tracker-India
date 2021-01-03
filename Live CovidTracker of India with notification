@@ -1,0 +1,39 @@
+import requests
+from bs4 import BeautifulSoup
+from plyer import notification
+
+
+def notifyme(title,message):
+    notification.notify(
+        title=title,
+        message=message,
+        app_icon="F:\Full stack py dev\Coronavirus.ico",
+        timeout=10
+    )
+
+def get_data(url):
+    r = requests.get(url)
+    return r.text
+
+
+if __name__ == "__main__":
+    html_data = get_data("https://www.mohfw.gov.in/index.html") 
+    soup = BeautifulSoup(html_data, 'html.parser')
+    info_name = soup.find('li', class_="bg-blue").find('span', class_='mob-show').get_text()    
+    info_num = soup.find('li', class_="bg-blue").contents[3].get_text(strip=True)             # bs4 docs
+    print(info_name)
+    print(f"Total:{info_num}")
+    print()
+    info_name1 = soup.find('li', class_="bg-green").find('strong', class_='mob-hide').get_text()
+    info_num1 = soup.find('li', class_="bg-green").contents[3].get_text(strip=True)
+    print(info_name1)
+    print(f"Total:{info_num1}")
+    print()
+    info_name2 = soup.find('li', class_="bg-red").find('strong', class_='mob-hide').get_text()
+    info_num2 = soup.find('li', class_="bg-red").contents[3].get_text(strip=True)   # To remove \xa0 in the string.Use get_text(strip=True)
+    print(info_name2)
+    print(f"Total:{info_num2}")
+    print()
+    Title = "Hi! Ani. Live Covid cases of India (Source->mohfw.gov.in)"
+    Text = f"{info_name}: {info_num}\n{info_name1}: {info_num1}\n{info_name2}: {info_num2}"
+    notifyme(Title, Text)
