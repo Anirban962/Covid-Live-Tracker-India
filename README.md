@@ -1,4 +1,4 @@
-# Covid-Live-Tracker-India
+# WEB SCRAPER PROJECT
 This is showing live cases of covid in india daily.
 Clone or download zip "Covid-Live-Tracker-India" and open with pycharm(recommended). Open terminal & run python server,write the code -> python manage.py runserver
 It will give live data of daily covid cases in India
